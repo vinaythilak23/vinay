@@ -147,7 +147,7 @@ export default function App() {
       <section className="auth-card">
         <p className="eyebrow">RESQNOW PLATFORM</p>
         <h2>{authMode === "login" ? "Welcome back" : "Create your account"}</h2>
-        <p className="muted">Use a demo account or create a new account to get started.</p>
+        <p className="muted">Sign in or create an account to get started.</p>
         <form onSubmit={submitAuth} className="form-stack">
           {authMode === "register" && <>
             <label>Full name<input required value={auth.fullName} onChange={(e) => setAuth({ ...auth, fullName: e.target.value })} placeholder="Your full name" /></label>

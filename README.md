@@ -70,3 +70,8 @@ To start both servers with one command, double-click `run.bat` or run `.\run.ps1
 This is an academic prototype, not an official emergency dispatch system. It does not automatically contact police, ambulance, fire services, or SMS gateways. Test only with sample/demo incidents. Do not rely on it during a real emergency.
 
 Before public deployment, add production-grade validation, rate limiting, email/phone verification, secure image upload, audit logging, monitoring, and carefully reviewed authorization policies. Public OpenStreetMap tile service usage is subject to its usage policy.
+
+## Public deployment
+The frontend is published at https://vinaythilak23.github.io/vinay/. The API and PostgreSQL database are configured through `render.yaml`; create them by connecting this repository as a Blueprint in the Render dashboard. The free PostgreSQL database expires after 30 days, and the free API service may sleep while idle. Do not use this free setup for real emergency data.
+
+After the Render services are created, verify the API at `https://resqnow-api-vinaythilak23.onrender.com/api/health`. The frontend build is configured to use that API URL. Accounts must be registered through the app; the seed script is not run in production, so demo logins are not created.

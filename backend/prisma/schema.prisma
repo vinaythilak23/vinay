@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  fullName     String
+  email        String     @unique
+  phone        String?
+  passwordHash String
+  role         String     @default("CITIZEN")
+  availability Boolean    @default(false)
+  latitude     Float?
+  longitude    Float?
+  createdAt    DateTime   @default(now())
+  incidents    Incident[] @relation("ReporterIncidents")
+  assignments  Incident[] @relation("ResponderAssignments")
+}
+
+model Incident {
+  id                  String    @id @default(cuid())
+  title               String
+  category            String
+  description         String
+  severity            String    @default("MEDIUM")
+  status              String    @default("OPEN")
+  latitude            Float
+  longitude           Float
+  locationText        String?
+  reporterId          String
+  assignedResponderId String?
+  createdAt           DateTime  @default(now())
+  acceptedAt          DateTime?
+  arrivedAt           DateTime?
+  resolvedAt          DateTime?
+  reporter            User      @relation("ReporterIncidents", fields: [reporterId], references: [id])
+  assignedResponder   User?     @relation("ResponderAssignments", fields: [assignedResponderId], references: [id])
+
+  @@index([status, severity, createdAt])
+  @@index([reporterId])
+  @@index([assignedResponderId])
+}
